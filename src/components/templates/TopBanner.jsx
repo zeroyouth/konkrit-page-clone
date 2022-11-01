@@ -19,8 +19,8 @@ const TopLeftTriangle = styled.div`
   border-top: 60px solid ${colors.bgPrimary};
   border-right: 60px solid transparent;
   position: absolute;
-  top: 0px;
-  left: 0px;
+  top: -1px;
+  left: -1px;
 `;
 
 const TopRightTriangle = styled.div`
@@ -29,8 +29,8 @@ const TopRightTriangle = styled.div`
   border-bottom: 60px solid ${colors.bgPrimary};
   border-left: 60px solid transparent;
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: -1px;
+  right: -1px;
 `;
 
 const BannerOrderBox = styled.div`

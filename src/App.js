@@ -4,12 +4,7 @@ import Divder from "@components/atoms/Divider"
 import MetaMaskIcon from "@components/atoms/MetaMaskIcon";
 import Header from "@components/templates/Header";
 import TopBanner from "@components/templates/TopBanner";
-
-const Events = styled.div`
-  width: 100%;
-  height: 398px;
-  background-color: pink;
-`;
+import Events from "@components/templates/Events";
 
 const ItemOnSale = styled.div`
   width: 100%;
@@ -42,8 +37,8 @@ function App() {
       <GlobalStyle />
       <Header>헤더부분</Header>
       <TopBanner>탑배너부분</TopBanner>
-      <Events>탑배너부분</Events>
-      <ItemOnSale>탑배너부분</ItemOnSale>
+      <Events>이벤트</Events>
+      <ItemOnSale>아이템</ItemOnSale>
       <OpenseaTopCollections>컬렉션</OpenseaTopCollections>
       <OnBoarding>온보딩</OnBoarding>
       <Footer>푸터</Footer>
