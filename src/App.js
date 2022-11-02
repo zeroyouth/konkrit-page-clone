@@ -7,12 +7,7 @@ import TopBanner from "@components/templates/TopBanner";
 import Events from "@components/templates/Events";
 import ItemsOnSale from "@components/templates/ItemsOnSale";
 import OpenseaTopCollection from "@components/templates/OpenseaTopCollection";
-
-const OnBoarding = styled.div`
-  width: 100%;
-  height: 415px; 
-  background-color: teal;
-`;
+import OnBoarding from "@components/templates/OnBoarding";
 
 const Footer = styled.footer`
   height: 240px;
