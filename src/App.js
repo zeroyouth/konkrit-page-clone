@@ -6,12 +6,7 @@ import Header from "@components/templates/Header";
 import TopBanner from "@components/templates/TopBanner";
 import Events from "@components/templates/Events";
 import ItemsOnSale from "@components/templates/ItemsOnSale";
-
-const OpenseaTopCollections = styled.div`
-  width: 100%;
-  height: 648px;
-  background-color: dodgerblue;
-`;
+import OpenseaTopCollection from "@components/templates/OpenseaTopCollection";
 
 const OnBoarding = styled.div`
   width: 100%;
@@ -34,7 +29,7 @@ function App() {
       <TopBanner>탑배너부분</TopBanner>
       <Events>이벤트</Events>
       <ItemsOnSale>아이템</ItemsOnSale>
-      <OpenseaTopCollections>컬렉션</OpenseaTopCollections>
+      <OpenseaTopCollection>컬렉션</OpenseaTopCollection>
       <OnBoarding>온보딩</OnBoarding>
       <Footer>푸터</Footer>
     </>
