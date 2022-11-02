@@ -5,12 +5,7 @@ import MetaMaskIcon from "@components/atoms/MetaMaskIcon";
 import Header from "@components/templates/Header";
 import TopBanner from "@components/templates/TopBanner";
 import Events from "@components/templates/Events";
-
-const ItemOnSale = styled.div`
-  width: 100%;
-  height: 394px;
-  background-color: blue;
-`;
+import ItemsOnSale from "@components/templates/ItemsOnSale";
 
 const OpenseaTopCollections = styled.div`
   width: 100%;
@@ -38,7 +33,7 @@ function App() {
       <Header>헤더부분</Header>
       <TopBanner>탑배너부분</TopBanner>
       <Events>이벤트</Events>
-      <ItemOnSale>아이템</ItemOnSale>
+      <ItemsOnSale>아이템</ItemsOnSale>
       <OpenseaTopCollections>컬렉션</OpenseaTopCollections>
       <OnBoarding>온보딩</OnBoarding>
       <Footer>푸터</Footer>
