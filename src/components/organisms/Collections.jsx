@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import * as colors from "@styles/colors";
 import Ether from "@components/atoms/Ether";
+import axios from "axios";
 
 const CollectionList = styled.ul`
   margin-top: 16px;
@@ -71,32 +72,59 @@ const PriceText = styled.span`
   margin-left: 4px;
 `;
 export default function Collections() {
+  const [collections, setCollections] = useState({ openseaCollections: [] });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    async function fetchCollections() {
+      setIsLoading(true);
+      setIsError(false);
+      try {
+        const results = await axios(
+          "http://localhost:3000/api/opensea-top-collections"
+        );
+        setCollections(results.data);
+        setIsLoading(false);
+      } catch {
+        setIsError(true);
+        setIsLoading(false);
+      }
+    }
+    fetchCollections();
+  }, []);
+
+  if (isLoading) {
+    return <div>로딩</div>;
+  }
+
+  if (isError) {
+    return <div>에러</div>;
+  }
+
   return (
     <CollectionList>
-      {[1, 2, 3, 4, 5].map((rank) => (
-        <CollectionItem key={rank}>
+      {collections.openseaCollections.map((collection, index) => (
+        <CollectionItem key={collection.id}>
           <CollectionInfo>
-            <RankText>{rank}</RankText>
-            <Thumbnail
-              src="https://konkrit-prod-collectionmedia-156cyqu7bx316.s3.ap-northeast-2.amazonaws.com/main/0x209e639a0ec166ac7a1a4ba41968fa967db30221.png"
-              alt="이미지"
-            />
-            <CollectionName>Genuine Undead</CollectionName>
+            <RankText>{index + 1}</RankText>
+            <Thumbnail src={collection.imgUrl} alt={collection.name} />
+            <CollectionName>{collection.name}</CollectionName>
           </CollectionInfo>
           <CollectionPriceInfo>
             <NormalText>최저가</NormalText>
             <SpanDoubleWrapper>
               <PriceWrapper>
                 <Ether />
-                <PriceText>0.01</PriceText>
+                <PriceText>{collection.floorPrice}</PriceText>
               </PriceWrapper>
             </SpanDoubleWrapper>
             <NormalText>24h 거래량</NormalText>
             <PriceWrapper>
               <Ether />
-              <PriceText>0.01</PriceText>
+              <PriceText>{collection.oneDayVolume}</PriceText>
             </PriceWrapper>
-            <NumberText>+5.7%</NumberText>
+            <NumberText>{collection.oneDayVolumeChange}%</NumberText>
           </CollectionPriceInfo>
         </CollectionItem>
       ))}
