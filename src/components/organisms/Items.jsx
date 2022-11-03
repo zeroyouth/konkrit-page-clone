@@ -6,6 +6,7 @@ import HideScrollX from "@components/molecules/HideScrollX";
 import axios from "axios";
 import Item from "@components/molecules/Item";
 import LoadingSpinner from "@components/atoms/LoadingSpinner";
+import useData from "@hooks/useData";
 
 const LoadingWrapper = styled.div`
   height: 275px;
@@ -16,25 +17,10 @@ const LoadingWrapper = styled.div`
 `;
 
 export default function Items() {
-  const [items, setItems] = useState({ items: [] });
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-
-  useEffect(() => {
-    async function fetchItems() {
-      setIsLoading(true);
-      setIsError(false);
-      try {
-        const results = await axios("http://localhost:3000/api/items");
-        setItems(results.data);
-        setIsLoading(false);
-      } catch {
-        setIsError(true);
-        setIsLoading(false);
-      }
-    }
-    fetchItems();
-  }, []);
+  const { data, isLoading, isError } = useData(
+    { items: [] },
+    "http://localhost:3000/api/items"
+  );
 
   if (isLoading) {
     return (
@@ -50,7 +36,7 @@ export default function Items() {
 
   return (
     <HideScrollX>
-      {items.items.map((item) => (
+      {data.items.map((item) => (
         <Item item={item} key={item.id} />
       ))}
     </HideScrollX>
