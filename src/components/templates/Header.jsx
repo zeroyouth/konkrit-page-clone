@@ -97,6 +97,9 @@ function Header() {
         { closeButton: true }
       );
       setUser(accounts[0]);
+      //localStoarge 저장
+      localStorage.setItem("_user", accounts[0]);
+
       toast.success(`${accounts[0].slice(0, 13)}...님 환영합니다~ ^^`);
     } catch {
       toast.error("로그인 실패..! 다시 시도해주세요~^^");
@@ -114,7 +117,9 @@ function Header() {
       return;
     }
     toast.warn("다시 로그인 해주세요 ^^!");
+    //user => "" localStorage _user
     setUser("");
+    localStorage.removeItem("_user");
   }
 
   return (
