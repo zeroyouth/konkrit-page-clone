@@ -32,11 +32,25 @@ function formatCount(count) {
   return `${count}`;
 }
 
-export default function CountDown() {
+export default function CountDown({ targetDate }) {
   //month같은 경우에는 index이기 때문에 11월 => 10월로 작성해주셔야 합니다.
-  const { days, hours, minutes, seconds } = useCountDown(
-    new Date(2022, 11, 31)
-  );
+  const { days, hours, minutes, seconds, isClosed, isComingSoon } =
+    useCountDown(targetDate);
+  if (isComingSoon) {
+    return (
+      <EachCountWrapper>
+        <CountText>Coming Soon!</CountText>
+      </EachCountWrapper>
+    );
+  }
+  if (isClosed) {
+    return (
+      <EachCountWrapper>
+        <CountText>Closed...</CountText>
+      </EachCountWrapper>
+    );
+  }
+
   return (
     <CountDownWrapper>
       <EachCountWrapper>

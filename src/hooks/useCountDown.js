@@ -4,13 +4,21 @@ function useCountDown(targetDate) {
   const [countDown, setCountDown] = useState(() => {
     return Math.max(targetDate - new Date(), 0);
   });
+  const isClosed = countDown <= 0;
+  const isComingSoon = isNaN(countDown);
+
   useEffect(() => {
     const id = setInterval(() => {
       setCountDown((c) => Math.max(c - 1000, 0));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return getValues(countDown);
+  const result = getValues(countDown)
+  result.isClosed = isClosed;
+  result.isComingSoon = isComingSoon;
+
+  //{ ...getValues(countDown), isClosed, isCommingSoon }
+  return result;
 }
 
 function getValues(ms) {
