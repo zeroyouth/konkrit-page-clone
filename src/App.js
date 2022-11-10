@@ -34,6 +34,58 @@ function App() {
       localStorage.setItem("_user", account);
     }
   }, [setUser]);
+
+  useEffect(() => {
+    if (!klaytn) {
+      return;
+    }
+
+    const handleChangeAccounts = () => {
+      if (!user) {
+        return;
+      }
+
+      const changedAccount = klaytn?.selectedAddress;
+
+      if (user !== changedAccount) {
+        toast.success(`${changedAccount.slice(0, 5)}..계정이 바뀌셨군요 ㅎㅎ!!`);
+        setUser(changedAccount);
+        localStorage.setItem("_user", changedAccount);
+      }
+    };
+
+    klaytn?.on("accountsChanged", handleChangeAccounts);
+    return () => {
+      klaytn.off("accountsChanged", handleChangeAccounts);
+    };
+
+  }, [user, setUser]);
+
+  useEffect(() => {
+    if (!klaytn) {
+      return;
+    }
+
+    const networkObj = {
+      1001: "바오밥 테스트넷",
+      8217: "메인넷",
+    };
+
+    const handleNetworkChanged = () => {
+      setUser("");
+      localStorage.removeItem("_user");
+      toast.warn(
+        `네트워크가 ${networkObj[klaytn.networkVersion]
+        }으로 바뀌었군요! 다시 로그인 해주세요~`
+      );
+    };
+
+    klaytn?.on("networkChanged", handleNetworkChanged);
+    return () => {
+      klaytn?.removeListener("networkChanged", handleNetworkChanged);
+    };
+  }, [setUser]);
+
   return (
     <>
       <GlobalStyle />
